@@ -119,7 +119,7 @@ echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
 hariini=`date -d "0 days" +"%Y-%m-%d"`
 expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
 echo -e ""
-echo -e "${CYAN}Informasi SSH & OpenVPN ARTA VPS"
+echo -e "${CYAN}Informasi SSH & Open FriendsVPN"
 echo -e "=============================="
 echo -e "IP/Host       : $IP"
 echo -e "Domain        : ${domain}"
