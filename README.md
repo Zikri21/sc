@@ -1,5 +1,5 @@
 <h2 align="center">
-Auto Script By Vluks Store
+Auto Script By friens Store
 <img src="https://img.shields.io/badge/Version-1.0.0-blue.svg"></h2>
 
 </p> 
@@ -15,7 +15,7 @@ Auto Script By Vluks Store
 
 
 
-# Zxvluks
+# Friend
 
 
 
