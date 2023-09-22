@@ -106,11 +106,11 @@ cat>/etc/xray/vmess-$user-tls.json<<EOF
       "v": "2",
       "ps": "${user}",
       "add": "${domain}",
-      "port": "${tls}",
+      "port": "443",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
-      "path": "/mdx",
+      "path": "/vmess",
       "type": "none",
       "host": "",
       "tls": "tls"
@@ -121,11 +121,11 @@ cat>/etc/xray/vmess-$user-nontls.json<<EOF
       "v": "2",
       "ps": "${user}",
       "add": "${domain}",
-      "port": "${nontls}",
+      "port": "80",
       "id": "${uuid}",
       "aid": "0",
       "net": "ws",
-      "path": "/mdx",
+      "path": "/vmess",
       "type": "none",
       "host": "",
       "tls": "none"
@@ -145,13 +145,13 @@ echo -e "======-XRAYS/VMESS-======"
 echo -e "Remarks     : ${user}"
 echo -e "IP/Host     : ${MYIP}"
 echo -e "Address     : ${domain}"
-echo -e "Port TLS    : ${tls}"
-echo -e "Port No TLS : ${nontls}"
+echo -e "Port TLS    : 443"
+echo -e "Port No TLS : 80"
 echo -e "User ID     : ${uuid}"
 echo -e "Alter ID    : 0"
 echo -e "Security    : auto"
 echo -e "Network     : ws"
-echo -e "Path        : /mdx"
+echo -e "Path        : /vmess"
 echo -e "Created     : $hariini"
 echo -e "Expired     : $exp"
 echo -e "========================="
