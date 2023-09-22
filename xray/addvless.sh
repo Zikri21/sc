@@ -106,8 +106,8 @@ sed -i '/#xray-vless-tls$/a\#### '"$user $exp"'\
 },{"id": "'""$uuid""'","email": "'""$user""'"' /etc/xray/config.json
 sed -i '/#xray-vless-nontls$/a\#### '"$user $exp"'\
 },{"id": "'""$uuid""'","email": "'""$user""'"' /etc/xray/config.json
-xrayvless1="vless://${uuid}@${domain}:$tls?path=/mdx&security=tls&encryption=none&type=ws#${user}"
-xrayvless2="vless://${uuid}@${domain}:$nontls?path=/mdx&encryption=none&type=ws#${user}"
+xrayvless1="vless://${uuid}@${domain}:443?path=/vless&security=tls&encryption=none&type=ws#${user}"
+xrayvless2="vless://${uuid}@${domain}:80?path=/vless&encryption=none&type=ws#${user}"
 systemctl restart xray.service
 service cron restart
 clear
@@ -116,12 +116,12 @@ echo -e "======-XRAYS/VLESS-======"
 echo -e "Remarks     : ${user}"
 echo -e "IP/Host     : ${MYIP}"
 echo -e "Address     : ${domain}"
-echo -e "Port TLS    : $tls"
-echo -e "Port No TLS : $nontls"
+echo -e "Port TLS    : 443"
+echo -e "Port No TLS : 80"
 echo -e "User ID     : ${uuid}"
 echo -e "Encryption  : none"
 echo -e "Network     : ws"
-echo -e "Path        : /mdx"
+echo -e "Path        : /vless"
 echo -e "Created     : $hariini"
 echo -e "Expired     : $exp"
 echo -e "========================="
