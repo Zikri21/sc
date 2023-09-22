@@ -119,7 +119,7 @@ CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
 # ==========================================
 # Link Hosting Kalian Untuk Ssh Vpn
-akbarvpn="raw.githubusercontent.com/Zikri21/sc/main/ssh"
+akbarvpn="raw.githubusercontent.com/rehanvip/bb/main/ssh"
 # Link Hosting Kalian Untuk Sstp
 akbarvpnn="raw.githubusercontent.com/Zikri21/sc/main/sstp"
 # Link Hosting Kalian Untuk Ssr
@@ -129,13 +129,13 @@ akbarvpnnnn="raw.githubusercontent.com/Zikri21/sc/main/shadowsocks"
 # Link Hosting Kalian Untuk Wireguard
 akbarvpnnnnn="raw.githubusercontent.com/Zikri21/sc/main/wireguard"
 # Link Hosting Kalian Untuk Xray
-akbarvpnnnnnn="raw.githubusercontent.com/Zikri21/sc/main/xray"
+akbarvpnnnnnn="raw.githubusercontent.com/rehanvip/bb/main/xray"
 # Link Hosting Kalian Untuk Ipsec
 akbarvpnnnnnnn="raw.githubusercontent.com/Zikri21/sc/main/ipsec"
 # Link Hosting Kalian Untuk Backup
 akbarvpnnnnnnnn="raw.githubusercontent.com/Zikri21/sc/main/backup"
 # Link Hosting Kalian Untuk Websocket
-akbarvpnnnnnnnnn="raw.githubusercontent.com/Zikri21/sc/main/websocket"
+akbarvpnnnnnnnnn="raw.githubusercontent.com/HssPunya93/jb/main/julak"
 # Link Hosting Kalian Untuk Ohp
 akbarvpnnnnnnnnnn="raw.githubusercontent.com/Zikri21/sc/main/ohp"
 # Getting
@@ -222,9 +222,9 @@ chmod +x set-br.sh >/dev/null 2>&1
 # Websocket
 echo -e "[ ${green}INFO$NC ] Downloading & Installing SSH Websocket"
 sleep 3
-wget https://${akbarvpnnnnnnnnn}/edu.sh >/dev/null 2>&1
-chmod +x edu.sh >/dev/null 2>&1
-./edu.sh >/dev/null 2>&1
+wget https://${akbarvpnnnnnnnnn}/insshws.sh >/dev/null 2>&1
+chmod +x insshws.sh >/dev/null 2>&1
+./insshws.sh >/dev/null 2>&1
 # Ohp Server
 echo -e "[ ${green}INFO$NC ] Downloading & Installing OHP"
 sleep 3
