@@ -1,31 +1,9 @@
 #!/bin/bash
-# ==========================================
-# Color
-RED='\033[0;31m'
-NC='\033[0m'
-GREEN='\033[0;32m'
-ORANGE='\033[0;33m'
-BLUE='\033[0;34m'
-PURPLE='\033[0;35m'
-CYAN='\033[0;36m'
-LIGHT='\033[0;37m'
-off='\x1b[m'
-# ==========================================
-# Getting
-
-clear
+#Julak Bantur
 # ==================================================
-# Link Hosting Kalian
-akbarvpn="raw.githubusercontent.com/Zikri21/sc/main/ssh"
-
-# Link Hosting Kalian Untuk Xray
-akbarvpnn="raw.githubusercontent.com/Zikri21/sc/main/xray"
-
-# Link Hosting Kalian Untuk Trojan Go
-akbarvpnnn="raw.githubusercontent.com/Zikri21/sc/main/trojango"
-
-# Link Hosting Kalian Untuk Stunnel5
-akbarvpnnnn="raw.githubusercontent.com/Zikri21/sc/main/stunnel5"
+julak="raw.githubusercontent.com/Zikri21/sc/main/ssh"
+julak1="raw.githubusercontent.com/Zikri21/sc/main/xray"
+julak2="raw.githubusercontent.com/Zikri21/sc/main/trojango"
 
 # initializing var
 export DEBIAN_FRONTEND=noninteractive
@@ -38,14 +16,14 @@ ver=$VERSION_ID
 #detail nama perusahaan
 country=ID
 state=Indonesia
-locality=Indonesia
-organization=fsidvpn
-organizationalunit=fsidvpn
-commonname=fsidvpn
-email=awaledyan@gmail.com
+locality=Kalimantan,Selatan
+organization=ppnstore
+organizationalunit=hmktcloud
+commonname=bagus
+email=imisbgs@gmail.com
 
 # simple password minimal
-wget -O /etc/pam.d/common-password "https://${akbarvpn}/password"
+curl -sS https://${julak}/password | openssl aes-256-cbc -d -a -pass pass:scvps07gg -pbkdf2 > /etc/pam.d/common-password
 chmod +x /etc/pam.d/common-password
 
 # go to root
@@ -93,41 +71,18 @@ apt dist-upgrade -y
 apt-get remove --purge ufw firewalld -y
 apt-get remove --purge exim4 -y
 
+#install jq
+apt -y install jq
+
+#install shc
+apt -y install shc
+
 # install wget and curl
 apt -y install wget curl
 
-# Install Requirements Tools
-apt install ruby -y
-apt install python -y
-apt install make -y
-apt install cmake -y
-apt install coreutils -y
-apt install rsyslog -y
-apt install net-tools -y
-apt install zip -y
-apt install unzip -y
-apt install nano -y
-apt install sed -y
-apt install gnupg -y
-apt install gnupg1 -y
-apt install bc -y
-apt install jq -y
-apt install apt-transport-https -y
-apt install build-essential -y
-apt install dirmngr -y
-apt install libxml-parser-perl -y
-apt install neofetch -y
-apt install git -y
-apt install lsof -y
-apt install libsqlite3-dev -y
-apt install libz-dev -y
-apt install gcc -y
-apt install g++ -y
-apt install libreadline-dev -y
-apt install zlib1g-dev -y
-apt install libssl-dev -y
-apt install libssl1.0-dev -y
-apt install dos2unix -y
+#figlet
+apt-get install figlet -y
+apt-get install ruby -y
 gem install lolcat
 
 # set time GMT +7
@@ -136,37 +91,55 @@ ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 # set locale
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 
-# install
-echo -e "[ ${green}INFO${NC} ] reinstall --fix-missing install -y bzip2 gzip coreutils wget screen rsyslog iftop htop net-tools zip unzip wget net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential dirmngr libxml-parser-perl neofetch git lsof"
-apt-get --reinstall --fix-missing install -y bzip2 gzip coreutils wget screen rsyslog iftop htop net-tools zip unzip wget net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential dirmngr libxml-parser-perl neofetch git lsof >/dev/null 2>&1
-echo "clear" >> .profile
-echo "figlet -f slant Vluks Store | lolcat" >> .profile
-echo "sleep 0.5" >> .profile
-echo "clear" >> .profile
-echo "running " >> .profile
-echo "echo -e \" - Script Mod By Vluks\" | lolcat" >> .profile
-echo "echo -e \"\x1b[96m - Silahkan Ketik\x1b[m \x1b[92mMENU\x1b[m \x1b[96mUntuk Melihat daftar Perintah\x1b[m\"" >> .profile
+
+install_ssl(){
+    if [ -f "/usr/bin/apt-get" ];then
+            isDebian=`cat /etc/issue|grep Debian`
+            if [ "$isDebian" != "" ];then
+                    apt-get install -y nginx certbot
+                    apt install -y nginx certbot
+                    sleep 3s
+            else
+                    apt-get install -y nginx certbot
+                    apt install -y nginx certbot
+                    sleep 3s
+            fi
+    else
+        yum install -y nginx certbot
+        sleep 3s
+    fi
+
+    systemctl stop nginx.service
+
+    if [ -f "/usr/bin/apt-get" ];then
+            isDebian=`cat /etc/issue|grep Debian`
+            if [ "$isDebian" != "" ];then
+                    echo "A" | certbot certonly --renew-by-default --register-unsafely-without-email --standalone -d $domain
+                    sleep 3s
+            else
+                    echo "A" | certbot certonly --renew-by-default --register-unsafely-without-email --standalone -d $domain
+                    sleep 3s
+            fi
+    else
+        echo "Y" | certbot certonly --renew-by-default --register-unsafely-without-email --standalone -d $domain
+        sleep 3s
+    fi
+}
 
 # install webserver
-apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
+apt -y install nginx
+cd
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-curl https://${akbarvpn}/nginx.conf > /etc/nginx/nginx.conf
-curl https://${akbarvpn}/vps.conf > /etc/nginx/conf.d/vps.conf
-sed -i 's/listen = \/var\/run\/php-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/fpm/pool.d/www.conf
-useradd -m vps;
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/rehanvip/bb/main/ssh/nginx.conf"
 mkdir -p /home/vps/public_html
-echo "<?php phpinfo() ?>" > /home/vps/public_html/info.php
-chown -R www-data:www-data /home/vps/public_html
-chmod -R g+rw /home/vps/public_html
-cd /home/vps/public_html
-wget -O /home/vps/public_html/index.html "https://${akbarvpn}/index.html1"
+rm /etc/nginx/conf.d/vps.conf
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/rehanvip/bb/main/ssh/vps.conf"
 /etc/init.d/nginx restart
-cd
 
 # install badvpn
 cd
-wget -O /usr/bin/badvpn-udpgw "https://${akbarvpn}/badvpn-udpgw64"
+wget -O /usr/bin/badvpn-udpgw "https:/${julak}/badvpn-udpgw64"
 chmod +x /usr/bin/badvpn-udpgw
 sed -i '$ i\screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7100 --max-clients 500' /etc/rc.local
 sed -i '$ i\screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7200 --max-clients 500' /etc/rc.local
@@ -182,105 +155,48 @@ screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7800 --max-clients 500
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7900 --max-clients 500
 
 # setting port ssh
-sed -i 's/Port 22/Port 22/g' /etc/ssh/sshd_config
+cd
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+sed -i '/Port 22/a Port 500' /etc/ssh/sshd_config
+sed -i '/Port 22/a Port 40000' /etc/ssh/sshd_config
+sed -i '/Port 22/a Port 51443' /etc/ssh/sshd_config
+sed -i '/Port 22/a Port 58080' /etc/ssh/sshd_config
+sed -i '/Port 22/a Port 200' /etc/ssh/sshd_config
+sed -i '/Port 22/a Port 22' /etc/ssh/sshd_config
+/etc/init.d/ssh restart
 
+echo "=== Install Dropbear ==="
 # install dropbear
 apt -y install dropbear
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
 sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=143/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 109"/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 50000 -p 109 -p 110 -p 69"/g' /etc/default/dropbear
 echo "/bin/false" >> /etc/shells
 echo "/usr/sbin/nologin" >> /etc/shells
+/etc/init.d/ssh restart
 /etc/init.d/dropbear restart
 
-# install squid
 cd
-apt -y install squid3
-wget -O /etc/squid/squid.conf "https://${akbarvpn}/squid3.conf"
-sed -i $MYIP2 /etc/squid/squid.conf
-
-# Install SSLH
-apt -y install sslh
-rm -f /etc/default/sslh
-
-# Settings SSLH
-cat > /etc/default/sslh <<-END
-# Default options for sslh initscript
-# sourced by /etc/init.d/sslh
-
-# Disabled by default, to force yourself
-# to read the configuration:
-# - /usr/share/doc/sslh/README.Debian (quick start)
-# - /usr/share/doc/sslh/README, at "Configuration" section
-# - sslh(8) via "man sslh" for more configuration details.
-# Once configuration ready, you *must* set RUN to yes here
-# and try to start sslh (standalone mode only)
-
-RUN=yes
-
-# binary to use: forked (sslh) or single-thread (sslh-select) version
-# systemd users: don't forget to modify /lib/systemd/system/sslh.service
-DAEMON=/usr/sbin/sslh
-
-DAEMON_OPTS="--user sslh --listen 0.0.0.0:443 --ssl 127.0.0.1:777 --ssh 127.0.0.1:109 --openvpn 127.0.0.1:1194 --http 127.0.0.1:8880 --pidfile /var/run/sslh/sslh.pid -n"
-
-END
-
-# Restart Service SSLH
-service sslh restart
-systemctl restart sslh
-/etc/init.d/sslh restart
-/etc/init.d/sslh status
-/etc/init.d/sslh restart
-
-# setting vnstat
-apt -y install vnstat
-/etc/init.d/vnstat restart
-apt -y install libsqlite3-dev
-wget https://humdi.net/vnstat/vnstat-2.6.tar.gz
-tar zxvf vnstat-2.6.tar.gz
-cd vnstat-2.6
-./configure --prefix=/usr --sysconfdir=/etc && make && make install
-cd
-vnstat -u -i $NET
-sed -i 's/Interface "'""eth0""'"/Interface "'""$NET""'"/g' /etc/vnstat.conf
-chown vnstat:vnstat /var/lib/vnstat -R
-systemctl enable vnstat
-/etc/init.d/vnstat restart
-rm -f /root/vnstat-2.6.tar.gz
-rm -rf /root/vnstat-2.6
-
-# install stunnel 5 
-cd /root/
-wget -q -O stunnel5.zip "https://${akbarvpnnnn}/stunnel5.zip"
-unzip -o stunnel5.zip
-cd /root/stunnel
-chmod +x configure
-./configure
-make
-make install
-cd /root
-rm -r -f stunnel
-rm -f stunnel5.zip
-mkdir -p /etc/stunnel5
-chmod 644 /etc/stunnel5
-
-# Download Config Stunnel5
-cat > /etc/stunnel5/stunnel5.conf <<-END
-cert = /etc/xray/xray.crt
-key = /etc/xray/xray.key
+# install stunnel
+apt install stunnel4 -y
+cat > /etc/stunnel/stunnel.conf <<-END
+cert = /etc/stunnel/stunnel.pem
 client = no
 socket = a:SO_REUSEADDR=1
 socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
 
 [dropbear]
-accept = 445
+accept = 447
+connect = 127.0.0.1:69
+
+[dropbear]
+accept = 8443
 connect = 127.0.0.1:109
 
-[openssh]
-accept = 777
-connect = 127.0.0.1:443
+[ws-stunnel]
+accept = 444
+connect = 700
 
 [openvpn]
 accept = 990
@@ -289,55 +205,20 @@ connect = 127.0.0.1:1194
 END
 
 # make a certificate
-#openssl genrsa -out key.pem 2048
-#openssl req -new -x509 -key key.pem -out cert.pem -days 1095 \
-#-subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$commonname/emailAddress=$email"
-#cat key.pem cert.pem >> /etc/stunnel5/stunnel5.pem
+openssl genrsa -out key.pem 2048
+openssl req -new -x509 -key key.pem -out cert.pem -days 1095 \
+-subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$commonname/emailAddress=$email"
+cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
 
-# Service Stunnel5 systemctl restart stunnel5
-cat > /etc/systemd/system/stunnel5.service << END
-[Unit]
-Description=Stunnel5 Service
-Documentation=https://stunnel.org
-Documentation=https://github.com/fsvpn
-After=syslog.target network-online.target
-
-[Service]
-ExecStart=/usr/local/bin/stunnel5 /etc/stunnel5/stunnel5.conf
-Type=forking
-
-[Install]
-WantedBy=multi-user.target
-END
-
-# Service Stunnel5 /etc/init.d/stunnel5
-wget -q -O /etc/init.d/stunnel5 "https://${akbarvpnnnn}/stunnel5.init"
-
-# Ubah Izin Akses
-chmod 600 /etc/stunnel5/stunnel5.pem
-chmod +x /etc/init.d/stunnel5
-cp /usr/local/bin/stunnel /usr/local/bin/stunnel5
-
-# Remove File
-rm -r -f /usr/local/share/doc/stunnel/
-rm -r -f /usr/local/etc/stunnel/
-rm -f /usr/local/bin/stunnel
-rm -f /usr/local/bin/stunnel3
-rm -f /usr/local/bin/stunnel4
-#rm -f /usr/local/bin/stunnel5
-
-# Restart Stunnel 5
-systemctl stop stunnel5
-systemctl enable stunnel5
-systemctl start stunnel5
-systemctl restart stunnel5
-/etc/init.d/stunnel5 restart
-/etc/init.d/stunnel5 status
-/etc/init.d/stunnel5 restart
+# konfigurasi stunnel
+sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
+/etc/init.d/stunnel4 restart
 
 #OpenVPN
-wget https://${akbarvpn}/vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
+wget https://${julak}/vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
 
+# // install lolcat
+#wget https://${julak}/main/ssh/lolcat.sh &&  chmod +x lolcat.sh && ./lolcat.sh
 # install fail2ban
 apt -y install fail2ban
 
@@ -369,14 +250,15 @@ echo 'Config file is at /usr/local/ddos/ddos.conf'
 echo 'Please send in your comments and/or suggestions to zaf@vsnl.com'
 
 # banner /etc/issue.net
-echo "Banner /etc/issue.net" >>/etc/ssh/sshd_config
+sleep 1
+echo -e "[ ${green}INFO$NC ] Settings banner"
+wget -q -O /etc/issue.net "https://${julak}/main/ssh/issue.net"
+chmod +x /etc/issue.net
+echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
 
-# Install BBR
-wget https://${akbarvpn}/bbr.sh && chmod +x bbr.sh && ./bbr.sh
-
-# Ganti Banner
-wget -O /etc/issue.net "https://${akbarvpn}/issue.net"
+#install bbr dan optimasi kernel
+#wget https://${julak}/main/ssh/bbr.sh && chmod +x bbr.sh && ./bbr.sh
 
 # blockir torrent
 iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
@@ -397,53 +279,53 @@ netfilter-persistent reload
 
 # download script
 cd /usr/bin
-wget -O addhost "https://${akbarvpn}/addhost.sh"
-wget -O about "https://${akbarvpn}/about.sh"
-wget -O stat "https://${akbarvpn}/stat.sh"
-wget -O banner "https://${akbarvpn}/banner.sh"
+wget -O addhost "https://${julak}/addhost.sh"
+wget -O about "https://${julak}/about.sh"
+wget -O stat "https://${julak}/stat.sh"
+wget -O banner "https://${julak}/banner.sh"
 wget -O menu "https://raw.githubusercontent.com/Zikri21/sc/main/update/menu.sh"
-wget -O addssh "https://${akbarvpn}/addssh.sh"
-wget -O trialssh "https://${akbarvpn}/trialssh.sh"
-wget -O delssh "https://${akbarvpn}/delssh.sh"
-wget -O member "https://${akbarvpn}/member.sh"
-wget -O delexp "https://${akbarvpn}/delexp.sh"
-wget -O cekssh "https://${akbarvpn}/cekssh.sh"
-wget -O restart "https://${akbarvpn}/restart.sh"
-wget -O speedtest "https://${akbarvpn}/speedtest_cli.py"
-wget -O info "https://${akbarvpn}/info.sh"
-wget -O ram "https://${akbarvpn}/ram.sh"
-wget -O renewssh "https://${akbarvpn}/renewssh.sh"
-wget -O autokill "https://${akbarvpn}/autokill.sh"
-wget -O ceklim "https://${akbarvpn}/ceklim.sh"
-wget -O tendang "https://${akbarvpn}/tendang.sh"
-wget -O clearlog "https://${akbarvpn}/clearlog.sh"
-wget -O changeport "https://${akbarvpn}/changeport.sh"
-wget -O portovpn "https://${akbarvpn}/portovpn.sh"
-wget -O portwg "https://${akbarvpn}/portwg.sh"
-wget -O porttrojan "https://${akbarvpn}/porttrojan.sh"
-wget -O portsstp "https://${akbarvpn}/portsstp.sh"
-wget -O portsquid "https://${akbarvpn}/portsquid.sh"
-wget -O portvlm "https://${akbarvpn}/portvlm.sh"
-wget -O wbmn "https://${akbarvpn}/webmin.sh"
-wget -O xp "https://${akbarvpn}/xp.sh"
-wget -O swapkvm "https://${akbarvpn}/swapkvm.sh"
-wget -O addvmess "https://${akbarvpnn}/addv2ray.sh"
-wget -O addvless "https://${akbarvpnn}/addvless.sh"
-wget -O addtrojan "https://${akbarvpnn}/addtrojan.sh"
-wget -O delvmess "https://${akbarvpnn}/delv2ray.sh"
-wget -O delvless "https://${akbarvpnn}/delvless.sh"
-wget -O deltrojan "https://${akbarvpnn}/deltrojan.sh"
-wget -O cekvmess "https://${akbarvpnn}/cekv2ray.sh"
-wget -O cekvless "https://${akbarvpnn}/cekvless.sh"
-wget -O cektrojan "https://${akbarvpnn}/cektrojan.sh"
-wget -O renewvmess "https://${akbarvpnn}/renewv2ray.sh"
-wget -O renewvless "https://${akbarvpnn}/renewvless.sh"
-wget -O renewtrojan "https://${akbarvpnn}/renewtrojan.sh"
-wget -O certv2ray "https://${akbarvpnn}/certv2ray.sh"
-wget -O addtrgo "https://${akbarvpnnn}/addtrgo.sh"
-wget -O deltrgo "https://${akbarvpnnn}/deltrgo.sh"
-wget -O renewtrgo "https://${akbarvpnnn}/renewtrgo.sh"
-wget -O cektrgo "https://${akbarvpnnn}/cektrgo.sh"
+wget -O addssh "https://${julak}/addssh.sh"
+wget -O trialssh "https://${julak}/trialssh.sh"
+wget -O delssh "https://${julak}/delssh.sh"
+wget -O member "https://${julak}/member.sh"
+wget -O delexp "https://${julak}/delexp.sh"
+wget -O cekssh "https://${julak}/cekssh.sh"
+wget -O restart "https://${julak}/restart.sh"
+wget -O speedtest "https://${julak}/speedtest_cli.py"
+wget -O info "https://${julak}/info.sh"
+wget -O ram "https://${julak}/ram.sh"
+wget -O renewssh "https://${julak}/renewssh.sh"
+wget -O autokill "https://${julak}/autokill.sh"
+wget -O ceklim "https://${julak}/ceklim.sh"
+wget -O tendang "https://${julak}/tendang.sh"
+wget -O clearlog "https://${julak}/clearlog.sh"
+wget -O changeport "https://${julak}/changeport.sh"
+wget -O portovpn "https://${julak}/portovpn.sh"
+wget -O portwg "https://${julak}/portwg.sh"
+wget -O porttrojan "https://${julak}/porttrojan.sh"
+wget -O portsstp "https://${julak}/portsstp.sh"
+wget -O portsquid "https://${julak}/portsquid.sh"
+wget -O portvlm "https://${julak}/portvlm.sh"
+wget -O wbmn "https://${julak}/webmin.sh"
+wget -O xp "https://${julak}/xp.sh"
+wget -O swapkvm "https://${julak}/swapkvm.sh"
+wget -O addvmess "https://${julak1}/addv2ray.sh"
+wget -O addvless "https://${julak1}/addvless.sh"
+wget -O addtrojan "https://${julak1}/addtrojan.sh"
+wget -O delvmess "https://${julak1}/delv2ray.sh"
+wget -O delvless "https://${julak1}/delvless.sh"
+wget -O deltrojan "https://${julak1}/deltrojan.sh"
+wget -O cekvmess "https://${julak1}/cekv2ray.sh"
+wget -O cekvless "https://${julak1}/cekvless.sh"
+wget -O cektrojan "https://${julak1}/cektrojan.sh"
+wget -O renewvmess "https://${julak1}/renewv2ray.sh"
+wget -O renewvless "https://${julak1}/renewvless.sh"
+wget -O renewtrojan "https://${julak1}/renewtrojan.sh"
+wget -O certv2ray "https://${julak1}/certv2ray.sh"
+wget -O addtrgo "https://${julak2}/addtrgo.sh"
+wget -O deltrgo "https://${julak2}/deltrgo.sh"
+wget -O renewtrgo "https://${julak2}/renewtrgo.sh"
+wget -O cektrgo "https://${julak2}/cektrgo.sh"
 wget -O portsshnontls "https://raw.githubusercontent.com/Zikri21/sc/main/websocket/portsshnontls.sh"
 wget -O portsshws "https://raw.githubusercontent.com/Zikri21/sc/main/websocket/portsshws.sh"
 
@@ -526,32 +408,67 @@ chmod +x cektrgo
 chmod +x running
 chmod +x slowdns
 
-echo "0 5 * * * root clearlog && reboot" >> /etc/crontab
-echo "0 0 * * * root xp" >> /etc/crontab
+cat > /etc/cron.d/re_otm <<-END
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+0 2 * * * root /sbin/reboot
+END
+
+cat > /etc/cron.d/xp_otm <<-END
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+0 0 * * * root /usr/bin/xp
+END
+
+cat > /home/re_otm <<-END
+7
+END
+
+service cron restart >/dev/null 2>&1
+service cron reload >/dev/null 2>&1
+
 # remove unnecessary files
-cd
-apt autoclean -y
-apt -y remove --purge unscd
-apt-get -y --purge remove samba*;
-apt-get -y --purge remove apache2*;
-apt-get -y --purge remove bind9*;
-apt-get -y remove sendmail*
-apt autoremove -y
+sleep 1
+echo -e "[ ${green}INFO$NC ] Clearing trash"
+apt autoclean -y >/dev/null 2>&1
+
+if dpkg -s unscd >/dev/null 2>&1; then
+apt -y remove --purge unscd >/dev/null 2>&1
+fi
+
+apt-get -y --purge remove samba* >/dev/null 2>&1
+apt-get -y --purge remove apache2* >/dev/null 2>&1
+apt-get -y --purge remove bind9* >/dev/null 2>&1
+apt-get -y remove sendmail* >/dev/null 2>&1
+apt autoremove -y >/dev/null 2>&1
 # finishing
-sudo hostnamectl set-hostname FriensVPN
 cd
 chown -R www-data:www-data /home/vps/public_html
-/etc/init.d/nginx restart
-/etc/init.d/openvpn restart
-/etc/init.d/cron restart
-/etc/init.d/ssh restart
-/etc/init.d/dropbear restart
-/etc/init.d/fail2ban restart
-/etc/init.d/sslh restart
-/etc/init.d/stunnel5 restart
-/etc/init.d/vnstat restart
-/etc/init.d/fail2ban restart
-/etc/init.d/squid restart
+sleep 1
+echo -e "$yell[SERVICE]$NC Restart All service SSH & OVPN"
+/etc/init.d/nginx restart >/dev/null 2>&1
+sleep 1
+echo -e "[ ${green}ok${NC} ] Restarting nginx"
+/etc/init.d/openvpn restart >/dev/null 2>&1
+sleep 1
+echo -e "[ ${green}ok${NC} ] Restarting cron "
+/etc/init.d/ssh restart >/dev/null 2>&1
+sleep 1
+echo -e "[ ${green}ok${NC} ] Restarting ssh "
+/etc/init.d/dropbear restart >/dev/null 2>&1
+sleep 1
+echo -e "[ ${green}ok${NC} ] Restarting dropbear "
+/etc/init.d/fail2ban restart >/dev/null 2>&1
+sleep 1
+echo -e "[ ${green}ok${NC} ] Restarting fail2ban "
+/etc/init.d/stunnel4 restart >/dev/null 2>&1
+sleep 1
+echo -e "[ ${green}ok${NC} ] Restarting stunnel4 "
+/etc/init.d/vnstat restart >/dev/null 2>&1
+sleep 1
+echo -e "[ ${green}ok${NC} ] Restarting vnstat "
+/etc/init.d/squid restart >/dev/null 2>&1
+
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7100 --max-clients 500
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7200 --max-clients 500
 screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 500
@@ -564,7 +481,7 @@ screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7900 --max-clients 500
 history -c
 echo "unset HISTFILE" >> /etc/profile
 
-cd
+
 rm -f /root/key.pem
 rm -f /root/cert.pem
 rm -f /root/ssh-vpn.sh
